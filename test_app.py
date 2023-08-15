@@ -6,7 +6,7 @@ from flask import Flask, session
 
 @pytest.fixture
 def client():
-    app.config['TESTING'] = True
+    # app.config['TESTING'] = True
     app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:Holiday5@localhost:3306/bookstore"
 
     with app.test_client() as client:
