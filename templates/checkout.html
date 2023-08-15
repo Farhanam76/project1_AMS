@@ -1,0 +1,94 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <h1>Lets Checkout!</h1>
+    <body>
+    <div class="checkout-section"> 
+        <form method="POST" action="{{ url_for('checkout') }}">
+            {{ form.hidden_tag() }} 
+            <fieldset class="form-group">
+                <legend> Shipping Information </legend>
+                <div class="form-group">
+                    <div class="form-group">
+                        {{ form.firstname.label(class="form-control-label") }}
+                        {{ form.firstname(class="form-control form-control-lg") }} 
+                    </div>
+                    <div class="form-group">
+                        {{ form.lastname.label(class="form-control-label") }}
+                        {{ form.lastname(class="form-control form-control-lg") }} 
+                    </div>
+                    <div class="form-group">
+                        {{ form.email.label(class="form-control-label") }}
+                        {{ form.email(class="form-control form-control-lg") }} 
+                    </div>
+                    <div class="form-group">
+                        {{ form.phonenum.label(class="form-control-label") }}
+                        {{ form.phonenum(class="form-control form-control-lg") }} 
+                    </div>
+                    <div class="form-group">
+                        {{ form.address.label(class="form-control-label") }}
+                        {{ form.address(class="form-control form-control-lg") }} 
+                    </div>
+                    <div class="form-group">
+                        {{ form.country.label(class="form-control-label") }}
+                        {{ form.country(class="form-control form-control-lg") }} 
+                    </div>
+                    <div class="form-group">
+                        {{ form.county.label(class="form-control-label") }}
+                        {{ form.county(class="form-control form-control-lg") }} 
+                    </div>
+                    <div class="form-group">
+                        {{ form.postcode.label(class="form-control-label") }}
+                        {{ form.postcode(class="form-control form-control-lg") }} 
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="same-address">
+                        <label class="form-check-label" for="same-address"> Billing address is the same as my shipping address</label>
+                      </div>
+            
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="save-info">
+                        <label class="form-check-label" for="save-info">Save this information for next time</label>
+                      </div>
+    
+                    
+                    </div>
+                    
+                    
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+                
+            
+        </div>
+            
+           
+
+
+            </div>
+            
+            
+        </form>
+    </div>
+</body>
+<script>
+    function validateFormAndProceed() {
+        // Perform form validation here
+        var isValid = true; // Change this based on your validation logic
+
+        if (isValid) {
+            // Form is valid, proceed to the next page
+            window.location.href = "{{ url_for('payment') }}";
+        } else {
+            // Form is not valid, display an error message
+            alert("Please fill out all the required fields.");
+        }
+    }
+    </script>
+    <a href="/show_cart">
+        <button>Back to Cart</button>
+{% endblock %}
+
+
+
+

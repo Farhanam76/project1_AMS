@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>"{{ book5.name }}" Description:</h2>
+<p>
+   Beyond Good and Evil: Prelude to a Philosophy of the Future (German: Jenseits von Gut und Böse: Vorspiel einer Philosophie der Zukunft) is a book by philosopher Friedrich Nietzsche that covers ideas in his previous work Thus Spoke Zarathustra but with a more polemical approach. It was first published in 1886 under the publishing house C. G. Naumann of Leipzig at the author's own expense and first translated into English by Helen Zimmern, who was two years younger than Nietzsche and knew the author.
+</p>
+<img src="https://images-eu.ssl-images-amazon.com/images/I/81dor1Kws5L._AC_UL600_SR600,600_.jpg">
+{% if book5 %}
+<h3>Stock levels: {{ book5.quantity }}</h3>
+<form action="/action_page.php">
+  <label for="quantity">Quantity:</label>
+  <input type="number" id="quantity" name="quantity" min="1" max="5" />
+</form>
+<button
+  id="addToCartButton"
+  type="button"
+  onclick="addToCart('{{ book5.name }}','{{ book5.price }}')">
+  Add to Cart
+</button>
+{% else %}
+<p>Debug: book2 is not available in the template context</p>
+{% endif %}
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  function addToCart(book5Name, book5Price) {
+    const quantity = document.getElementById("quantity").value
+      ? document.getElementById("quantity").value
+      : 1;
+    console.log(quantity);
+    const bookData = {
+      name: book5Name,
+      quantity: quantity,
+      price: book5Price,
+    };
+
+    axios
+      .post("/add_to_cart", bookData)
+      .then((response) => {
+        console.log(response.data.message);
+        alert("Book added to cart!");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+</script>
+{% endblock %}

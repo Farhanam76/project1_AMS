@@ -1,0 +1,55 @@
+{% extends "layout.html" %} {% block content %}
+<h2>"{{ book.name }}" Description:</h2>
+<p>
+  All the Light We Cannot See is a 2014 war novel by American author Anthony
+  Doerr. The novel is set during World War II and centers around the characters
+  Marie-Laure LeBlanc, a blind French girl who takes refuge in her uncle's house
+  in Saint-Malo after Paris is invaded by Nazi Germany, and Werner Pfennig, a
+  bright German boy who is accepted into a military school because of his skills
+  in radio technology, before being sent to the military. The novel is written
+  in a lyrical style, and almost all of the chapters alternate between
+  Marie-Laure's and Werner's stories, which parallel each other. The narrative
+  has a nonlinear structure, flashing between the Battle of Saint-Malo and the
+  events leading up to it. The story has ethical themes such as the dangers of
+  greed and the nature of sacrifice, and portrays the destructive nature of war
+  and Doerr's fascination with science and nature.
+</p>
+<img src="https://images.squarespace-cdn.com/content/v1/605b7322b806fb292a9defce/1616621031363-UZFOW4A5EGD6AENHX9HO/all-the-light-we-cannot-see_Anthony_Doerr.jpg">
+<h3>Stock levels: {{ book.quantity }}</h3>
+<form action="/action_page.php">
+  <label for="quantity">Quantity:</label>
+  <input type="number" id="quantity" name="quantity" min="1" max="5" />
+</form>
+<button
+  id="addToCartButton"
+  type="button"
+  onclick="addToCart('{{ book.name }}','{{book.price}}')"
+>
+  Add to Cart
+</button>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  function addToCart(bookName, bookPrice) {
+    const quantity = document.getElementById("quantity").value
+      ? document.getElementById("quantity").value
+      : 1;
+    console.log(quantity);
+    const bookData = {
+      name: bookName,
+      quantity: quantity,
+      price: bookPrice,
+    };
+
+    axios
+      .post("/add_to_cart", bookData)
+      .then((response) => {
+        console.log(response.data.message);
+        alert("Book added to cart!");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+</script>
+{% endblock %}

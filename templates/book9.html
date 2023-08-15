@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>"{{ book9.name }}" Description:</h2>
+<p>
+   A twisting, page-turning tour-de-force from the beloved, multimillion copy selling sensation, Lucinda Riley.The sudden death of a pupil in Fleat House at St Stephen's - a small private boarding school in deepest Norfolk - is a shocking event that the headmaster is very keen to call a tragic accident.But the local police cannot rule out foul play and the case prompts the return of high-flying Detective Inspector Jazmine 'Jazz' Hunter to the force. Jazz has her own private reasons for stepping away from her police career in London, but reluctantly agrees to front the investigation as a favour to her old boss.
+</p>
+<img src="https://images-eu.ssl-images-amazon.com/images/I/710zLVOqV4L._AC_UL600_SR600,600_.jpg">
+{% if book9 %}
+<h3>Stock levels: {{ book9.quantity }}</h3>
+<form action="/action_page.php">
+  <label for="quantity">Quantity:</label>
+  <input type="number" id="quantity" name="quantity" min="1" max="5" />
+</form>
+<button
+  id="addToCartButton"
+  type="button"
+  onclick="addToCart('{{ book9.name }}','{{ book9.price }}')">
+  Add to Cart
+</button>
+{% else %}
+<p>Debug: book2 is not available in the template context</p>
+{% endif %}
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  function addToCart(book9Name, book9Price) {
+    const quantity = document.getElementById("quantity").value
+      ? document.getElementById("quantity").value
+      : 1;
+    console.log(quantity);
+    const bookData = {
+      name: book9Name,
+      quantity: quantity,
+      price: book9Price,
+    };
+
+    axios
+      .post("/add_to_cart", bookData)
+      .then((response) => {
+        console.log(response.data.message);
+        alert("Book added to cart!");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+</script>
+{% endblock %}

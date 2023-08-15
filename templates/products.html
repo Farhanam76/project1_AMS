@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block content %}
+<head>
+    <style>
+        .link-as-text {
+            text-decoration: none; 
+            color: white; 
+            cursor: pointer; 
+        }
+    
+        
+        .description-button {
+            background-color:#d7c7bb; 
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    
+        
+        .book-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+        }
+    
+        
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+    </style>
+    </head>
+    <body>
+        <h1>Products of Books</h1>
+        <div class="book-list">
+            {% for book in books %}
+            <div class="book-box">
+                {{ book.name }} by {{ book.author }} (Price: {{ book.price }})
+                <button class="description-button" type="button">
+                    <a class="link-as-text" href="http://localhost:5000/products/book{{ loop.index }}">See Description</a>
+                </button>
+            </div>
+            {% endfor %}
+        </div>
+    </body>
+    
+
+{% endblock %}

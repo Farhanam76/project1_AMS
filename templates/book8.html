@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>"{{ book8.name }}" Description:</h2>
+<style>
+  img {
+    max-width: 400px; 
+    height: auto; 
+  }
+</style>
+  
+<p>
+   This is Going to Hurt: Secret Diaries of a Junior Doctor is a nonfiction book by the British comedy writer Adam Kay, published in 2017 by Picador. It is a collection of diary entries written by Kay during his medical training from 2004 to 2010. 
+</p>
+<img src="https://cdn.kobo.com/book-images/2a2f5c12-6b3e-4484-bfe1-02fa5b0a857f/1200/1200/False/this-is-going-to-hurt.jpg">
+{% if book8 %}
+<h3>Stock levels: {{ book8.quantity }}</h3>
+<form action="/action_page.php">
+  <label for="quantity">Quantity:</label>
+  <input type="number" id="quantity" name="quantity" min="1" max="5" />
+</form>
+<button
+  id="addToCartButton"
+  type="button"
+  onclick="addToCart('{{ book8.name }}','{{ book8.price }}')">
+  Add to Cart
+</button>
+{% else %}
+<p>Debug: book2 is not available in the template context</p>
+{% endif %}
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  function addToCart(book8Name, book8Price) {
+    const quantity = document.getElementById("quantity").value
+      ? document.getElementById("quantity").value
+      : 1;
+    console.log(quantity);
+    const bookData = {
+      name: book8Name,
+      quantity: quantity,
+      price: book8Price,
+    };
+
+    axios
+      .post("/add_to_cart", bookData)
+      .then((response) => {
+        console.log(response.data.message);
+        alert("Book added to cart!");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+</script>
+{% endblock %}

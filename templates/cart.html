@@ -1,0 +1,50 @@
+{% extends "layout.html" %} {% block content %}
+<h1> Your cart summary:</h1>
+<div id="cart">
+  
+</div>
+<div id="total-price">Total Price: $0</div>
+
+<script>
+  function displayCart(cart) {
+    console.log(" ~ file: cart.html:9 ~ displayCart ~ cart:", cart);
+    const cartDiv = document.getElementById("cart");
+    cartDiv.innerHTML = "";
+
+    for (const item of cart) {
+      const cartItem = document.createElement("div");
+      cartItem.innerHTML = `<p>Name: ${item.name} , Price: $${
+        item.price
+      } , QTY: ${item?.quantity ? item.quantity : 0}</p>`;
+      cartDiv.appendChild(cartItem);
+    }
+  }
+
+  function displayTotalPrice(cart) {
+    const totalPriceDiv = document.getElementById("total-price");
+    let total = 0;
+    for (const item of cart) {
+      total += item?.price ? Number(item.price) * item.quantity : 0;
+    }
+    totalPriceDiv.innerHTML = `Total Price: $${total.toFixed(2)}`;
+  }
+
+  const cartData = {{cart|tojson|safe}}; 
+  const cartLength = cartData.length;
+  if (cartLength) { 
+    console.log(cartLength);
+    displayCart(cartData);
+    displayTotalPrice(cartData);
+  }
+</script>
+<input type="hidden" name="book_id" value="{{ book_id }}">
+<a href="/checkout">
+  <button>Proceed to Checkout</button>
+</a>
+{% endblock %}
+
+
+
+
+
+

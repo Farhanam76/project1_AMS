@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>"{{ book10.name }}" Description:</h2>
+<style>
+    img {
+    max-width: 600px; 
+    height: auto; 
+  }
+</style>
+<p>
+   Welcome to the world of the forensic psychologist, where the people you meet are wildly unpredictable and often frightening.
+
+   The job: to delve into the psyche of convicted men and women to try to understand what lies behind their often brutal actions.
+   
+   Follow in the footsteps of Kerry Daynes, one of the most sought-after forensic psychologists in the business and consultant on major police investigations.
+   
+   Kerry's job has taken her to the cells of maximum-security prisons, police interview rooms, the wards of secure hospitals and the witness box of the court room.
+   
+   Her work has helped solve a cold case, convict the guilty and prevent a vicious attack.
+   
+   Spending every moment of your life staring into the darker side of life comes with a price. Kerry's frank memoir gives an unforgettable insight into the personal and professional dangers in store for a female psychologist working with some of the most disturbing men and women.</p>
+<img src="https://images-eu.ssl-images-amazon.com/images/I/61p3RRvNxiL._AC_UL600_SR600,600_.jpg">
+{% if book10 %}
+<h3>Stock levels: {{ book10.quantity }}</h3>
+<form action="/action_page.php">
+  <label for="quantity">Quantity:</label>
+  <input type="number" id="quantity" name="quantity" min="1" max="5" />
+</form>
+<button
+  id="addToCartButton"
+  type="button"
+  onclick="addToCart('{{ book10.name }}','{{ book10.price }}')">
+  Add to Cart
+</button>
+{% else %}
+<p>Debug: book2 is not available in the template context</p>
+{% endif %}
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  function addToCart(book10Name, book10Price) {
+    const quantity = document.getElementById("quantity").value
+      ? document.getElementById("quantity").value
+      : 1;
+    console.log(quantity);
+    const bookData = {
+      name: book10Name,
+      quantity: quantity,
+      price: book10Price,
+    };
+
+    axios
+      .post("/add_to_cart", bookData)
+      .then((response) => {
+        console.log(response.data.message);
+        alert("Book added to cart!");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+</script>
+{% endblock %}
