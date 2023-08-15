@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>"{{ book6.name }}" Description:</h2>
+<p>
+   Neil deGrasse Tyson's Astrophysics for People in a Hurry is a popular introduction to the main concepts and issues of modern astrophysics. The author explains the origin and structure of the Universe, the force of gravity, light, dark matter and dark energy, about our place in the Cosmos and how we try to understand its laws. The book is written in a simple and lively language, using vivid analogies. It is intended for a wide range of readers who want to get a general idea of astrophysics without complex formulas and details. The book consists of 12 short chapters, based on essays published in Natural History magazine
+</p>
+<img src="https://www.muzemerch.com/media/catalog/product/cache/d0b3e0c3f48a829f2e9e30ac87b08ff0/image/5187f4ba/astrophysics-for-people-in-a-hurry.jpg">
+{% if book6 %}
+<h3>Stock levels: {{ book6.quantity }}</h3>
+<form action="/action_page.php">
+  <label for="quantity">Quantity:</label>
+  <input type="number" id="quantity" name="quantity" min="1" max="5" />
+</form>
+<button
+  id="addToCartButton"
+  type="button"
+  onclick="addToCart('{{ book6.name }}','{{ book6.price }}')">
+  Add to Cart
+</button>
+{% else %}
+<p>Debug: book2 is not available in the template context</p>
+{% endif %}
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  function addToCart(book6Name, book6Price) {
+    const quantity = document.getElementById("quantity").value
+      ? document.getElementById("quantity").value
+      : 1;
+    console.log(quantity);
+    const bookData = {
+      name: book6Name,
+      quantity: quantity,
+      price: book6Price,
+    };
+
+    axios
+      .post("/add_to_cart", bookData)
+      .then((response) => {
+        console.log(response.data.message);
+        alert("Book added to cart!");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+</script>
+{% endblock %}

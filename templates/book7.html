@@ -1,0 +1,57 @@
+
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>"{{ book7.name }}" Description:</h2>
+<style>
+  
+  img {
+    max-width: 500px; 
+    height: auto; 
+  }
+</style>
+<p>
+    1776 (released in the United Kingdom as 1776: America and Britain at War)[1] is a book written by David McCullough, published by Simon & Schuster on May 24, 2005. The work is a companion to McCullough's earlier biography of John Adams, and focuses on the events surrounding the start of the American Revolutionary War. While revolving mostly around the leadership (and often indecisiveness) of George Washington, there is also considerable attention given to King George III, William Howe, Henry Knox, and Nathanael Greene. Key Revolutionary War battles detailed in the book include the Battle of Dorchester Heights, the Battle of Long Island, and the Battle of Trenton.[2] The activities of the Second Continental Congress and the signing of the Declaration of Independence are treated in less detail, as the focus is on military rather than political events. The book includes multiple pages of full color illustrations, including portraits and historical battlefield maps made by British engineers at the time.
+</p>
+<img src="https://d3525k1ryd2155.cloudfront.net/h/397/714/1391714397.0.x.jpg">
+{% if book7 %}
+<h3>Stock levels: {{ book7.quantity }}</h3>
+<form action="/action_page.php">
+  <label for="quantity">Quantity:</label>
+  <input type="number" id="quantity" name="quantity" min="1" max="5" />
+</form>
+<button
+  id="addToCartButton"
+  type="button"
+  onclick="addToCart('{{ book7.name }}','{{ book7.price }}')">
+  Add to Cart
+</button>
+{% else %}
+<p>Debug: book2 is not available in the template context</p>
+{% endif %}
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  function addToCart(book7Name, book7Price) {
+    const quantity = document.getElementById("quantity").value
+      ? document.getElementById("quantity").value
+      : 1;
+    console.log(quantity);
+    const bookData = {
+      name: book7Name,
+      quantity: quantity,
+      price: book7Price,
+    };
+
+    axios
+      .post("/add_to_cart", bookData)
+      .then((response) => {
+        console.log(response.data.message);
+        alert("Book added to cart!");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+</script>
+{% endblock %}
