@@ -167,6 +167,20 @@
       plusSlides(1);
     }, 4000); 
         </script>
+        <script>
+          document.addEventListener("DOMContentLoaded", function() {
+            const alertMessage = getQueryParam("alert");
+            if (alertMessage) {
+              alert(decodeURIComponent(alertMessage));
+            }
+          });
+          
+          function getQueryParam(name) {
+            const urlSearchParams = new URLSearchParams(window.location.search);
+            return urlSearchParams.get(name);
+          }
+          </script>
+      
         
         </body>
         </html> 
