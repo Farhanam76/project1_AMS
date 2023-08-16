@@ -1,7 +1,17 @@
 {%extends "layout.html"%}
 {% block content%}
+
     
 <h1 class="mb-3">Payment</h1>
+<div class="col-50">
+  <h3>Payment</h3>
+  <label for="fname">Accepted Cards</label>
+  <div class="icon-container">
+    <i class="fa fa-cc-visa" style="color:navy;"></i>
+    <i class="fa fa-cc-amex" style="color:blue;"></i>
+    <i class="fa fa-cc-mastercard" style="color:red;"></i>
+    <i class="fa fa-cc-discover" style="color:orange;"></i>
+  </div>
         
 <div class="my-3">
   <div class="custom-form-check">
@@ -15,7 +25,7 @@
   <div class="custom-form-check">
     <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required="">
     <label class="form-check-label" for="paypal">PayPal</label>
-    <a href= "https://www.paypal.com/signin">PayPal</a>
+    
   </div>
 </div>
 <div class="payment-section"> 

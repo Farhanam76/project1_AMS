@@ -1,6 +1,96 @@
-{%extends "layout.html"%}
-{% block content%}
-   <h1> Contack us</h1>
+{% extends "layout.html" %}
+{% block content %}
+   <style>
+      .contact-section {
+         padding: 20px;
+         background-color: #f2f2f2;
+         border-radius: 5px;
+         margin-bottom: 20px;
+      }
 
-    
-{% endblock%}
+      .contact-section h1 {
+         font-size: 28px;
+         color: #333;
+      }
+
+      .contact-section p {
+         font-size: 18px;
+         color: #666;
+      }
+
+      .contact-section ul {
+         list-style: none;
+         padding: 0;
+      }
+
+      .contact-section li {
+         margin-bottom: 10px;
+      }
+
+      .contact-section a {
+         color: #04AA6D;
+         text-decoration: none;
+      }
+
+      /* Additional styles for form */
+      .contact-form label {
+         display: block;
+         margin-bottom: 8px;
+         font-weight: bold;
+      }
+
+      .contact-form input[type="text"],
+      .contact-form textarea {
+         width: 100%;
+         padding: 12px;
+         border: 1px solid #ccc;
+         border-radius: 4px;
+         margin-bottom: 12px;
+      }
+
+      .contact-form input[type="submit"] {
+         background-color: #04AA6D;
+         color: white;
+         padding: 12px 20px;
+         border: none;
+         border-radius: 4px;
+         cursor: pointer;
+      }
+
+      .contact-form input[type="submit"]:hover {
+         background-color: #45a049;
+      }
+   </style>
+
+   <div class="contact-section">
+      <h1>Contact Us</h1>
+      <p>If you have any inquiries, feel free to get in touch.</p>
+     <img src="https://www.google.com/maps/d/thumbnail?mid=1fAWmeCwuUN_rm0yurWRNENtGBVk4_lpO&hl=en_US">
+   
+     <ul>
+      <li>Email: farhanna700@gmail.com</li>
+      <li>Phone: +44 XXXX XXXXXX</li>
+      <li><a href="">Follow us on Instagram: @thebookishnooks!</a></li>
+      <li>Location: Bookisk Nook, Central London, S12 345</li>
+   </ul>
+</div>
+   <div class="container">
+      <h3>Contact Form</h3>
+      <p>Please fill out the form below for any inquiries.</p>
+      <form class="contact-form" action="/action_page.php">
+         <label for="fname">First Name</label>
+         <input type="text" id="fname" name="firstname" placeholder="Your name..">
+
+         <label for="lname">Last Name</label>
+         <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+
+         <label for="email">Email</label>
+         <input type="text" id="email" name="email" placeholder="Your email..">
+
+         <label for="subject">Subject</label>
+         <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+
+         <input type="submit" value="Submit">
+      </form>
+   </div>
+{% endblock %}
