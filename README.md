@@ -9,6 +9,22 @@ This project has the following requirements:
 
 ## Jira board
 I initially began this project by outlining my plans for an online store specializing in books. To effectively monitor my project's development, I established a Kanban board. Within this board, I created a backlog column containing user stories of the customer and the owner outlining their preferences and desires for the website's functionality.
+User/Customer stories:
+'As a customer I want to :
+* Add products to my cart
+* be notified of the order being placed
+* to securely enter my payment details
+* Adjust the quantity of the products
+* Able to view product details, stock levels and descritption 
+* Easily enter my billing and shipping information
+* want to shop by category
+* navigate other section of the site
+* see the total price of my cart
+* see an about us page to access the store information on purpose or mission.
+As a store owner I want:
+* Monitor and access the databases 
+![Alt text](<Screenshot (140).png>)
+![Alt text](<Screenshot (139).png>)
 
 
 ## ERD/EER
