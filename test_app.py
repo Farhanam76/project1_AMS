@@ -71,7 +71,7 @@ def test_checkout_valid_data(client):
         'lastname': 'Doe',
         'email': 'john@example.com'
     })
-    assert response.status_code == 200  # Redirect after successful checkout
+    assert response.status_code == 200  
 
 
 
