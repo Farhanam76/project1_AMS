@@ -16,18 +16,14 @@ class Purchase(db.Model):
     customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
     book_isbn = db.Column(db.BIGINT, db.ForeignKey('books.ISBN'))
     book_name = db.Column(db.String(100))  # For display purposes
+
 class Books(db.Model):
     ISBN = db.Column(db.BIGINT, primary_key=True, unique=True)
     name = db.Column(db.String(100), nullable=False)
     author = db.Column(db.String(30), nullable=False)
     price = db.Column(db.Float)
     quantity = db.Column(db.Integer)
-# class Books(db.Model):
-#     ISBN = db.Column(db.BIGINT, primary_key=True, unique=True)
-#     name = db.Column(db.String(100), nullable = False, unique = True)
-#     author = db.Column(db.String(30), nullable = False)
-#     price = db.Column(db.Float)
-#     quantity = db.Column(db.Integer)
+
     
     customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
     purchases = db.relationship('Purchase', backref='book')
@@ -41,16 +37,7 @@ class Customer(db.Model):
     book = db.relationship('Books', backref='bookbr')
 
 
-# class Purchase(db.Model):
-#         id= db.Column(db.Integer, primary_key=True)
-#         customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
-#         book_name = db.Column(db.String(100), db.ForeignKey('books.name'))
 
-
-# #class Purchase(db.Model):
-#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-#     book_id = db.Column(db.BIGINT, db.ForeignKey('books.ISBN'))
-#     customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
 
 
 
