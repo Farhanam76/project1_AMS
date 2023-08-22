@@ -33,7 +33,7 @@ I started by creating a basic entity relationship diagram to outline the expecte
 
 As my project advanced, I came to understand that the initial approach was quite complex and wouldn't have been effective for storing customer information alongside the corresponding book IDs they bought. To address this, I introduced a third table named "Purchase," which includes the customer ID and the book ISBN. This new table establishes a relationship between the book and customer tables. Ultimately, the outcome shifted from associating customer IDs with book ISBNs to associating customer IDs with book names.
 This is the final look:
-![Screenshot (122)](https://github.com/Farhanam76/project1_AMS/assets/138291154/ed19e40c-bafc-494d-a38f-36ef51236532)
+![Alt text](<Screenshot (162).png>)
 
 ## Checkout/Payment page  
 To begin, I initiated the process of crafting the application routes intended for the checkout and payment pages. This entailed importing the essential Flask modules to enable their functionality. In a distinct file, I generated dedicated Flask forms for both the Payment and checkout segments. These forms were equipped with validators aimed at verifying that user-input data adhered to specific prerequisites. Following this, I proceeded to implement HTML code to visually render the form fields seamlessly on the webpage.

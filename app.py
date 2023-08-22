@@ -11,11 +11,14 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:Holiday5@localhost
 
 db = SQLAlchemy(app)
 cart =[]
+
 class Purchase(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
     book_isbn = db.Column(db.BIGINT, db.ForeignKey('books.ISBN'))
-    book_name = db.Column(db.String(100))  # For display purposes
+    book_name = db.Column(db.String(100))
+    quantity = db.Column(db.Integer)
+      
 
 class Books(db.Model):
     ISBN = db.Column(db.BIGINT, primary_key=True, unique=True)
@@ -26,7 +29,7 @@ class Books(db.Model):
 
     
     customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
-    purchases = db.relationship('Purchase', backref='book')
+    purchases = db.relationship('Purchase', backref='book',foreign_keys='Purchase.book_isbn')
 
     
 class Customer(db.Model):
@@ -52,6 +55,7 @@ def add_to_cart():
         data = request.json
         if data and 'name' in data and 'price' in data and 'quantity' in data:
             item = {
+                #'ISBN': data['ISBN'],
                 'name': data['name'],
                 'price': data['price'],
                 'quantity': data['quantity']
@@ -91,13 +95,14 @@ from flask import render_template
 
 @app.route("/show_cart")
 def show_cart():
+    
     serialized_cart = [{"name": item["name"], "quantity": item["quantity"], "price": item["price"]} for item in cart]
     session["cart_items"] = serialized_cart
-    for item in serialized_cart:
-        book_name = item["name"]
-        purchase = Purchase(book_name=book_name)
-        db.session.add(purchase)
-        db.session.commit()
+    # for item in serialized_cart:
+    #     book_name = item["name"]
+    #     purchase = Purchase(book_name=book_name)
+    #     db.session.add(purchase)
+    #     db.session.commit()
 
 
     cart_length = len(serialized_cart)
@@ -145,7 +150,9 @@ def checkout():
         
         for item in cart_items:
             book_name = item["name"]
-            purchase = Purchase(customer_id=customer_id, book_name=book_name)
+            quantity = item["quantity"]
+            
+            purchase = Purchase(customer_id=customer_id, book_name=book_name, quantity= quantity)
             db.session.add(purchase)
             db.session.commit()
         
